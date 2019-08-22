@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+
+<body>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+        }
+        canvas {
+            display: block;
+        }
+    </style>
+   <center> <button onclick="start()">Try Again</button></center>
+
+    <center> <canvas id="game" width="750" height="450" style="border:2px solid blue;"></canvas> </center>
+    <script>
+
+        let Bar = function () {
+            this.x = canvas.offsetWidth / 2 + 3;
+            this.y = canvas.offsetHeight - 24;
+            this.speed = 10;
+
+            this.moveLeft = function () {
+                if (this.x >= 10) {
+                    this.x -= this.speed;
+                }
+            };
+
+            this.moveRight = function () {
+                if (this.x <= canvas.offsetWidth - 50)
+                    this.x += this.speed;
+            };
+
+            this.getBar = function () {
+                ctx.fillStyle = "#FF0000";
+                ctx.fillRect(this.x, this.y, 40, 5);
+            };
+
+        };
+
+        let Circle = function () {
+            this.x = 0;
+            this.y = 0;
+            this.radius = 5;
+            this.dx = 5;
+            this.dy = 5;
+            this.count = 0;
+            this.level = 50;
+
+            this.moveX = function () {
+                this.x += this.dx
+                if (this.x <= -this.x / 2 || this.x >= canvas.offsetWidth - 5) {
+                    this.dx = -this.dx;
+                }
+
+            };
+
+            this.moveY = function () {
+                this.y += this.dy;
+                if (this.y <= -this.y / 2 ||
+                    ((this.x == bar.x
+                        || this.x == bar.x + 10
+                        || this.x == bar.x + 20 || this.x == bar.x + 30 || this.x == bar.x + 40)
+                        && (this.y == bar.y))) {
+                    this.dy = -this.dy;
+                }
+            };
+            this.countUp = function () {
+                if ((this.x == bar.x
+                    || this.x == bar.x + 10
+                    || this.x == bar.x + 20 || this.x == bar.x + 30 || this.x == bar.x + 40)
+                    && (this.y == bar.y)) {
+                    this.count++;
+                }
+            };
+            this.move = function () {
+                this.moveX();
+                this.moveY();
+            };
+
+            this.getBall = function () {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, 2 * Math.PI);
+                ctx.stroke();
+                ctx.fillStyle = "#FF0000";
+                ctx.fill();
+            };
+        };
+
+        let isPaused = true;
+        let gameHandler;
+        let canvas = document.getElementById("game");
+        let ctx = canvas.getContext("2d");
+        let bar = new Bar();
+        let circle = new Circle();
+         function start() {
+            window.location.reload();
+         }
+        window.onload = function () {
+            circle.getBall();
+        }
+        
+
+           function showHelp() {
+            ctx.font = "15px Arial";
+            ctx.fillText("Bấm phím CÁCH để bắt đầu hoặc dừng chơi.Phím a sang trái và Phím d sang phải.", 90, canvas.height / 2);
+        }
+        function play() {
+            isPaused = false;
+            gameHandler = setInterval(function () {
+            ctx.clearRect(0, 0, canvas.offsetWidth, canvas.offsetHeight);
+            circle.countUp();
+            ctx.font = "15px Arial";
+            ctx.fillText("Score: " + circle.count, 10, 50);
+            circle.move();
+            bar.getBar();
+            circle.getBall();
+            if (circle.y == bar.y + 20) {
+                alert("You Lose The Ball . Let try again ! ")
+            }
+          }, 20);
+        }
+        function pause() {
+            isPaused = true;
+            clearInterval(gameHandler);
+            showHelp();
+        }
+        function toggle() {
+            if (isPaused) {
+                play();
+            } else {
+                pause();
+            }
+        }
+    
+        window.addEventListener("keypress", function (event) {
+            const pressedKey = event.key.toLowerCase();
+            switch (pressedKey) {
+                case 'a':
+                    bar.moveLeft();
+                    break;
+                case 'd':
+                    bar.moveRight();
+                    break;
+                case ' ':
+                toggle();
+                break;
+            }
+        });
+        showHelp();
+
+
+
+    </script>
+</body>
+
+</html>
