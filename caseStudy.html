@@ -6,7 +6,7 @@
     <title>Title</title>
 </head>
 
-<body>
+<body      background="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAACoCAMAAABt9SM9AAAAA1BMVEUAAP79f+LBAAAAR0lEQVR4nO3BAQEAAACCIP+vbkhAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAO8GxYgAAb0jQ/cAAAAASUVORK5CYII=">
     <style>
         * {
             margin: 0;
@@ -23,7 +23,7 @@
     </style>
    <center> <button onclick="start()">Try Again</button></center>
 
-    <center> <canvas id="game" width="750" height="450" style="border:2px solid blue;"></canvas> </center>
+    <center> <canvas id="game" width="1150" height="450" style="border:2px solid blue;"></canvas> </center>
     <script>
 
         let Bar = function () {
@@ -112,7 +112,8 @@
 
            function showHelp() {
             ctx.font = "15px Arial";
-            ctx.fillText("Bấm phím CÁCH để bắt đầu hoặc dừng chơi.Phím a sang trái và Phím d sang phải.", 90, canvas.height / 2);
+            ctx.fillStyle = "red";
+            ctx.fillText("Bấm phím CÁCH để bắt đầu hoặc dừng chơi.Phím a sang trái và Phím d sang phải.", 350, canvas.height / 2);
         }
         showHelp();
         function play() {
@@ -121,14 +122,14 @@
             ctx.clearRect(0, 0, canvas.offsetWidth, canvas.offsetHeight);
             circle.countUp();
             ctx.font = "15px Arial";
-            ctx.fillText("Score: " + circle.count, 10, 50);
+            ctx.fillText("Score: " + circle.count, 572, 70);
             circle.move();
             bar.getBar();
             circle.getBall();
-            if (circle.y == bar.y + 20) {
+            if (circle.y == bar.y + 50) {
                 alert("You Lose The Ball . Let try again ! ")
             }
-          }, 15);
+          }, 25);
         }
         function pause() {
             isPaused = true;
