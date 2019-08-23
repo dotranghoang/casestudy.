@@ -46,7 +46,6 @@
                 ctx.fillStyle = "#FF0000";
                 ctx.fillRect(this.x, this.y, 40, 5);
             };
-
         };
 
         let Circle = function () {
@@ -56,7 +55,6 @@
             this.dx = 5;
             this.dy = 5;
             this.count = 0;
-            this.level = 50;
 
             this.moveX = function () {
                 this.x += this.dx
@@ -116,6 +114,7 @@
             ctx.font = "15px Arial";
             ctx.fillText("Bấm phím CÁCH để bắt đầu hoặc dừng chơi.Phím a sang trái và Phím d sang phải.", 90, canvas.height / 2);
         }
+        showHelp();
         function play() {
             isPaused = false;
             gameHandler = setInterval(function () {
@@ -129,7 +128,7 @@
             if (circle.y == bar.y + 20) {
                 alert("You Lose The Ball . Let try again ! ")
             }
-          }, 20);
+          }, 15);
         }
         function pause() {
             isPaused = true;
@@ -158,7 +157,7 @@
                 break;
             }
         });
-        showHelp();
+
 
 
 
